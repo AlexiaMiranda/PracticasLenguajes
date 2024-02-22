@@ -1,0 +1,77 @@
+diff --git a/Practica1.rkt b/Practica1.rkt
+index f5ede7d..46ff3aa 100644
+--- a/Practica1.rkt
++++ b/Practica1.rkt
+@@ -14,8 +14,24 @@ Luis Edgar Flores Ayala
+   (define rad (/ diametro 2)) (+ (* pi rad generatriz)(* pi (* rad rad) )))
+ 
+ ;; Ejercicio 2
++;; Definir la función decremental? que dados cuatro números indica si se encuentran ordenados de forma
++;; decremental.
+ (define (decremental? a b c d)
+-  (error "Sin implementar"))
++        (decremental-list (list a b c d)))
++
++;; Funcion que recibe un elemento y una lista y
++;; regresa #t si el elemento recibido es menor que el primer
++;; elemento de la lista o si la lista es vacia
++(define (last-less n list)
++        (or (empty? list) (> n (car list)))
++        )
++
++;; Funcion que dada una lista regresa #t si es vacia o si
++;; los elementos estan en orden descendente
++(define (decremental-list list)
++         (or (empty? list) (and (last-less (car list)(cdr list)) (decremental-list (cdr list))
++         ))
++         )
+ 
+ ;; Ejercicio 3
+ #|Definir la función area-heron que calcula el área de un triángulo a partir de la medida de cada uno de sus
+@@ -26,8 +42,16 @@ S = (a+b+c)/ 2
+   (let([S (/ (+ a b c) 2)]) (sqrt (* S (- S a) (- S b) (- S c)) )))
+ 
+ ;; Ejercicio 4
++;; Definir la función primer-letra la cual recibe una string, (cuyos elementos deben ser letras minúsculas),
++;; y devuelve ”Vocal“ si la primera letra es una vocal y ”Consonante“ si es una consonante.
+ (define (primera-letra s)
+-  (error "Sin implementar"))
++        (if (vocal? (first s)) "Vocal" "Consonante"))
++;; funcion que regresa #t si la letra recibida pertenece al conjunto de vocales
++(define (vocal? c) (if (member c '(#\a #\A #\e #\E #\i #\I #\o #\O #\u #\U)) #t #f ))
++
++;; funcion que obtiene la primera letra de una cadena si existe y la regresa
++(define (first string)
++        (if (< 0 (string-length string)) (string-ref string 0) (error "cadena vacia")))
+ 
+ ;; Ejercicio 5
+ #|Define la función par?, la cual recibirá un número y devolverá verdadero si el número recibido como parámetro
+@@ -37,8 +61,10 @@ es par y falso en cualquier otro caso.
+   (equal? (remainder n 2) 0 ))
+ 
+ ;; Ejercicio 6
++;; Define la función impar?, la cual recibirá un número y devolverá verdadero si el número recibido como
++;; parámetro es impar y falso en cualquier otro caso.
+ (define (impar? n)
+-  (error "Sin implementar"))
++  (not (zero? (remainder n 2))))
+ 
+ ;; Ejercicio 7
+ #|Define la función en-rango-o-fuera?, la cual recibirá tres números, y devolverá verdadero si el primer
+@@ -51,5 +77,14 @@ Modifique esto para que fuera a b c
+   (or (and (>= a b) (<= a c)) (or (< a (- b 10)) (> a (+ b 10)))) )
+ 
+ ;; Ejercicio 8
++;; Define la función calculadora, la cual recibirá tres argumentos, una string y dos números. El primer
++;; argumento solo podrá tomar los siguientes valores: ”first“, ”second“, ”sum“, ”mul“, ”div-exact“ y ”div“, y
++;; dependiendo de cuál de estos se reciba se hará una operación distinta.
+ (define (calculadora operacion n m)
+-  (error "Sin implementar"))
+\ No newline at end of file
++    (case operacion
++     [("first") n]
++     [("second") m]
++     [("sum")(+ n m)]
++     [("mul")(* n m)]
++     [("div-exact")(/ n  m)]
++     [("div")(quotient n m)]))
